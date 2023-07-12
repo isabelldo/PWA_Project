@@ -1,0 +1,24 @@
+{
+  "name": "Postcard, der Travelblog",
+  "short_name": "Postcard",
+  "start_url": "./index.html",
+  "id": "./index.html",
+  "display": "standalone",
+  "background_color": "#76B900",
+  "description": "Postcard ist der Blog für Dein Abenteuer",
+  "lang": "de-DE",
+  "dir": "ltr",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/src/images/Icon.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/src/images/Icon_letter.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    }
+  ]
+}
