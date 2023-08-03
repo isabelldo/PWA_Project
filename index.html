@@ -7,7 +7,6 @@
     <link rel="manifest" href="./manifest.json">
     <link rel="stylesheet" href="./src/css/app.css">
     <script src="./src/js/app.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,28 +46,27 @@
 </head>
 <body>
 <header>
-    <nav>
+        <div class="navigation">
         <img class="menu-Button" src="./src/images/Hamburgermenü.png" alt="Menü" onclick="toggleMenu()">
-        <ul class="menu" id="menu">
+        <ul class="menu" id="hidden-menu">
             <li><a href="#">Startseite</a></li>
             <li><a href="#">Über uns</a></li>
             <li><a href="#">Leistungen</a></li>
             <li><a href="#">Kontakt</a></li>
         </ul>
-    </nav>
+        </div>
     <img class="logo" src="./src/images/Icon.png" alt="Logo">
 </header>
-
 <div class="container">
     <div class="post">
-        <h2 id="content-title">Vietnam</h2>
+        <h2 class="content-title">Vietnam</h2>
         <div class="slider-container">
             <div class="slider">
                 <div class="slide">
-                    <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
+                    <img class="content-images" src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
                 </div>
                 <div class="slide">
-                    <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 2">
+                    <img class="content-images" src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 2">
                 </div>
             </div>
         </div>
@@ -81,144 +79,35 @@
             </p>
             <img class="like-btn" src="./src/images/heartbutton_99629.png" alt="Like Button">
             <span class="likes-count">100 Likes</span>
+            <img class="detail-btn" src="./src/images/vergrößern_icon.png" alt="detail Button" onclick="showPost()">
         </div>
     </div>
-        <div class="post">
-            <div class="slider-container">
-                <div class="slider">
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
-                    </div>
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 2">
-                    </div>
-                </div>
-            </div>
-            <div class="post-content">
-                <p>
-                    Hier ist ein spannender Reisebericht über mein erstes Reiseziel.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                    fringilla, nisl id mollis consectetur, felis lorem gravida odio,
-                    nec sagittis sem tortor quis erat.
-                </p>
-                <img class="like-btn" src="./src/images/heartbutton_99629.png" alt="Like Button">
-                <span class="likes-count">100 Likes</span>
-            </div>
-        </div>
-        <div class="post">
-            <div class="slider-container">
-                <div class="slider">
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
-                    </div>
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 2">
-                    </div>
-                </div>
-            </div>
-            <div class="post-content">
-                <p>
-                    Hier ist ein spannender Reisebericht über mein erstes Reiseziel.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                    fringilla, nisl id mollis consectetur, felis lorem gravida odio,
-                    nec sagittis sem tortor quis erat.
-                </p>
-                <img class="like-btn" src="./src/images/heartbutton_99629.png" alt="Like Button">
-                <span class="likes-count">100 Likes</span>
-            </div>
-        </div>
-        <div class="post">
-            <div class="slider-container">
-                <div class="slider">
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
-                    </div>
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 2">
-                    </div>
-                </div>
-            </div>
-            <div class="post-content">
-                <p>
-                    Hier ist ein spannender Reisebericht über mein erstes Reiseziel.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                    fringilla, nisl id mollis consectetur, felis lorem gravida odio,
-                    nec sagittis sem tortor quis erat.
-                </p>
-                <img class="like-btn" src="./src/images/heartbutton_99629.png" alt="Like Button">
-                <span class="likes-count">100 Likes</span>
-            </div>
-        </div>
-        <div class="post">
-            <div class="slider-container">
-                <div class="slider">
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
-                    </div>
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 2">
-                    </div>
-                </div>
-            </div>
-            <div class="post-content">
-                <p>
-                    Hier ist ein spannender Reisebericht über mein erstes Reiseziel.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                    fringilla, nisl id mollis consectetur, felis lorem gravida odio,
-                    nec sagittis sem tortor quis erat.
-                </p>
-                <img class="like-btn" src="./src/images/heartbutton_99629.png" alt="Like Button">
-                <span class="likes-count">100 Likes</span>
-            </div>
-        </div>
-        <div class="post">
-            <div class="slider-container">
-                <div class="slider">
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
-                    </div>
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 2">
-                    </div>
-                </div>
-            </div>
-            <div class="post-content">
-                <p>
-                    Hier ist ein spannender Reisebericht über mein erstes Reiseziel.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                    fringilla, nisl id mollis consectetur, felis lorem gravida odio,
-                    nec sagittis sem tortor quis erat.
-                </p>
-                <img class="like-btn" src="./src/images/heartbutton_99629.png" alt="Like Button">
-                <span class="likes-count">100 Likes</span>
-            </div>
-        </div>
-        <div class="post">
-            <div class="slider-container">
-                <div class="slider">
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
-                    </div>
-                    <div class="slide">
-                        <img src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 2">
-                    </div>
-                </div>
-            </div>
-            <div class="post-content">
-                <p>
-                    Hier ist ein spannender Reisebericht über mein erstes Reiseziel.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                    fringilla, nisl id mollis consectetur, felis lorem gravida odio,
-                    nec sagittis sem tortor quis erat.
-                </p>
-                <img class="like-btn" src="./src/images/heartbutton_99629.png" alt="Like Button">
-                <span class="likes-count">100 Likes</span>
-            </div>
-        </div>
 </div>
-<div class="wrapper">
-<button id="add-button">+</button>
+<div class="popup">
+    <span class="popuptext" id="onePost"><h4>Create an adventure memory</h4>
+        <textarea class="titleOnePost" placeholder="Title"></textarea>
+        <textarea class="descriptionOnePost" placeholder="Tell your adventure-memory"></textarea>
+         <div class="popup-bottomOnePost">
+            <input type="file" class="myFileOnePost" name="filename">
+            <label for="myFile" class="actualBtn"><img class="actualBtn" src="./src/images/image_icon.png"></label>
+            <input class="send" type="submit">
+        <label class="actualBtnCamera"><img class="actualBtnCamera" src="./src/images/camera_icon.png"></label>
+        </div>
+    </span>
 </div>
+    <div class="popup">
+        <img class="add-button" src="./src/images/32360.png" alt="Add Button" onclick="myFunction()">
+        <span class="popuptext" id="myPopup"><h4>Create an adventure memory</h4>
+        <textarea class="title" placeholder="Title"></textarea>
+        <textarea class="description" placeholder="Tell your adventure-memory"></textarea>
+         <div class="popup-bottom">
+            <input type="file" id="myFile" name="filename">
+            <label for="myFile" class="actualBtn"><img class="actualBtn" src="./src/images/image_icon.png"></label>
+            <input class="send" type="submit">
+        <label class="actualBtnCamera"><img class="actualBtnCamera" src="./src/images/camera_icon.png"></label>
+        </div>
+        </span>
+    </div>
 <footer>
     &copy; 2023 Postcard | Kontakt: kontakt@Postcard.com
 </footer>
