@@ -1,3 +1,5 @@
+
+
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
         .register('/sw.js')
@@ -8,18 +10,38 @@ if ('serviceWorker' in navigator) {
             err => { console.log(err); }
         );
 }
-function toggleMenu() {
-    var navigation = document.getElementById("hidden-menu");
-    navigation.classList.toggle("show");
-}
-// When the user clicks on div, open the popup
-function myFunction() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
+
+function showMenu() {
+    var menu = document.getElementById("hidden-menu");
+    if(menu.style.display == "inline-block")
+    {
+        menu.style.display = "none"
+    }
+    else {
+        menu.style.display = "inline-block"
+    }
 }
 
-function showPost() {
-    var onePost = document.getElementById("onePost");
-    console.log("test");
-    onePost.classList.toggle("showOnePost");
+function showPopup() {
+    var popup = document.getElementById("popupWindow");
+    if(popup.style.display == "flex")
+    {
+        popup.style.display = "none"
+    }
+    else {
+        popup.style.display = "flex"
+        initializeMedia();
+    }
 }
+
+function showMyPopup() {
+    var popup = document.getElementById("myPopupWindow");
+    if(popup.style.display == "flex")
+    {
+        popup.style.display = "none"
+    }
+    else {
+        popup.style.display = "flex"
+    }
+}
+

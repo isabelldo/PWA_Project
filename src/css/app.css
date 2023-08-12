@@ -13,46 +13,29 @@ header {
     box-shadow: 0 0 10px;
 }
 .popup {
-    display: flex;
-    bottom: 45px;
+    display: none;
+    bottom: 20%;
     position: fixed;
     user-select: none;
     width: 100%;
-    height: 70%;
+    height: 60%;
     justify-content: right;
     margin-left: 0;
+    z-index: 3;
 }
 
 /* The actual popup */
 .popup .popuptext {
-    visibility: hidden;
     width: 90%;
-    height: 80%;
     background-color: #f2f2f2;
     color: #000;
     text-align: center;
     border-radius: 6px;
     padding: 8px 0;
     position: relative;
-    z-index: 1;
     margin-left: 10%;
     margin-right: 10%;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-}
-
-/* Popup arrow */
-.popup .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-}
-
-/* Toggle this class - hide and show the popup */
-.popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
 }
 
 .popup-bottom{
@@ -63,52 +46,38 @@ header {
     padding-top: 5px;
 }
 
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
-}
-
 .menu-Button{
     height: 30px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
     width: auto;
     cursor: pointer;
     float: left;
-    margin-top: 20px;
-    margin-left: 20px;
+    z-index: 6;
 }
 
-.navigation {
+.menu {
+    display: none;
     position: absolute;
-    cursor: pointer;
-    justify-content: left;
-}
-.navigation .menu {
-    visibility: hidden;
-}
-.navigation .show {
-    visibility: visible;
     background-color: #f2f2f2;
-    padding: 30px;
-    line-height: 41px;
+    left: 0;
     margin-top: 0;
-    margin-left: 0;
+    padding: 40px;
+    z-index: 5;
+    line-height: 41px;
+    justify-content: left;
     text-align: left;
     border-radius: 6px;
     marker:none;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 
-.navigation .show li{
+.menu li{
     list-style-type: none;
 }
 
-.navigation .show a{
+.menu a{
     text-decoration: none;
     color: black;
 }
@@ -125,6 +94,7 @@ header {
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
 }
 .content-images {
     max-width: 100%;
@@ -133,7 +103,7 @@ header {
 }
 .post-content {
     margin-top: 1rem;
-    z-index: 5;
+    z-index: 4;
 }
 .like-btn {
     cursor: pointer;
@@ -145,6 +115,14 @@ header {
     margin-left: 5px;
     color: #333;
 }
+
+.exit-button{
+    float: right;
+    width: 30px;
+    height: auto;
+    padding-right: 10px;
+    cursor: pointer;
+}
 footer {
     background-color: #333;
     color: #fff;
@@ -153,6 +131,7 @@ footer {
     bottom: 0;
     position: fixed;
     width: 100%;
+    z-index: 2;
 }
 
 .content-title{
@@ -168,15 +147,22 @@ footer {
     box-shadow: 0 10px 20px;
 }
 
-.add-button{
+.add-button-wrapper{
     cursor: pointer;
-    bottom: 0;
-    position: absolute;
-    margin-bottom: 15px;
-    margin-right: 15px;
-    border-radius: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    bottom: 60px;
+    right: 10px;
+    float: right;
     height: 40px;
+    width: 40px;
+    z-index: 4;
+}
+
+.add-button{
+    height: 40px;
+    position: absolute;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 100%;
 }
 
 textarea{
@@ -185,7 +171,7 @@ textarea{
     width: 98%;
 }
 
-.description{
+#description{
     height: 60%;
 }
 
@@ -229,6 +215,10 @@ textarea{
         bottom: 0;
     }
 
+    .add-button-wrapper{
+        bottom: 20px;
+    }
+
     .content-title{
         font-family: "Brush Script MT";
         font-size: 30px;
@@ -245,21 +235,14 @@ textarea{
         display: none;
         height: 0;
     }
-    .add{
-        display: flex;
-        justify-content: right;
-        bottom: 0;
-        position: fixed;
-        width: 100%;
-        height: 50px;
+
+    .popup{
+        bottom: 20%;
     }
 
-    .add-button{
-        cursor: pointer;
-        bottom: 0;
-        margin-right: 15px;
-        border-radius: 100%;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        height: 40px;
+    .popup .popuptext{
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0;
     }
 }

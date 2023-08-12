@@ -46,30 +46,17 @@
 </head>
 <body>
 <header>
-        <div class="navigation">
-        <img class="menu-Button" src="./src/images/Hamburgermenü.png" alt="Menü" onclick="toggleMenu()">
+        <img class="menu-Button" src="./src/images/Hamburgermenü.png" alt="Menü" onclick="showMenu()">
         <ul class="menu" id="hidden-menu">
             <li><a href="#">Startseite</a></li>
-            <li><a href="#">Über uns</a></li>
-            <li><a href="#">Leistungen</a></li>
             <li><a href="#">Kontakt</a></li>
         </ul>
-        </div>
     <img class="logo" src="./src/images/Icon.png" alt="Logo">
 </header>
 <div class="container">
     <div class="post">
         <h2 class="content-title">Vietnam</h2>
-        <div class="slider-container">
-            <div class="slider">
-                <div class="slide">
                     <img class="content-images" src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
-                </div>
-                <div class="slide">
-                    <img class="content-images" src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 2">
-                </div>
-            </div>
-        </div>
         <div class="post-content">
             <p>
                 Hier ist ein spannender Reisebericht über mein erstes Reiseziel.
@@ -77,37 +64,41 @@
                 fringilla, nisl id mollis consectetur, felis lorem gravida odio,
                 nec sagittis sem tortor quis erat.
             </p>
-            <img class="like-btn" src="./src/images/heartbutton_99629.png" alt="Like Button">
+            <img class="like-btn" id="likes"src="./src/images/heartbutton_99629.png" alt="Like Button">
             <span class="likes-count">100 Likes</span>
-            <img class="detail-btn" src="./src/images/vergrößern_icon.png" alt="detail Button" onclick="showPost()">
+            <img class="detail-btn" src="./src/images/vergrößern_icon.png" alt="detail Button" onclick="showMyPopup()">
         </div>
     </div>
 </div>
-<div class="popup">
-    <span class="popuptext" id="onePost"><h4>Create an adventure memory</h4>
-        <textarea class="titleOnePost" placeholder="Title"></textarea>
-        <textarea class="descriptionOnePost" placeholder="Tell your adventure-memory"></textarea>
-         <div class="popup-bottomOnePost">
-            <input type="file" class="myFileOnePost" name="filename">
-            <label for="myFile" class="actualBtn"><img class="actualBtn" src="./src/images/image_icon.png"></label>
-            <input class="send" type="submit">
-        <label class="actualBtnCamera"><img class="actualBtnCamera" src="./src/images/camera_icon.png"></label>
-        </div>
+<div class="popup" id="myPopupWindow">
+    <span class="popuptext" id="onePost">
+        <img class="exit-button" src="./src/images/exit_icon.png" alt="Exit Button" onclick="showMyPopup()">
+        <h4>{{title}}</h4>
     </span>
 </div>
-    <div class="popup">
-        <img class="add-button" src="./src/images/32360.png" alt="Add Button" onclick="myFunction()">
-        <span class="popuptext" id="myPopup"><h4>Create an adventure memory</h4>
-        <textarea class="title" placeholder="Title"></textarea>
-        <textarea class="description" placeholder="Tell your adventure-memory"></textarea>
+<div class="add-button-wrapper">
+    <img class="add-button" id="add-button" src="./src/images/32360.png" alt="Add Button" onclick="showPopup()">
+</div>
+<div class="popup" id="popupWindow">
+    <form>
+        <span class="popuptext" id="myPopup">
+            <img class="exit-button" src="./src/images/exit_icon.png" alt="Exit Button" onclick="showPopup()">
+            <h4>Create an adventure memory</h4>
+        <label>
+             <textarea id="title" placeholder="Title"></textarea>
+        </label>
+            <label>
+                <textarea id="description" placeholder="Tell your adventure-memory"></textarea>
+            </label>
          <div class="popup-bottom">
             <input type="file" id="myFile" name="filename">
-            <label for="myFile" class="actualBtn"><img class="actualBtn" src="./src/images/image_icon.png"></label>
-            <input class="send" type="submit">
-        <label class="actualBtnCamera"><img class="actualBtnCamera" src="./src/images/camera_icon.png"></label>
+            <label for="myFile" class="actualBtn"><img class="actualBtn" src="./src/images/image_icon.png" alt="upload File Button"></label>
+             <button class="send" type="submit" onclick="addPost()"> add new post</button>
+        <label class="actualBtnCamera"><img class="actualBtnCamera" src="./src/images/camera_icon.png" alt="Take Picture Button"></label>
         </div>
         </span>
-    </div>
+    </form>
+</div>
 <footer>
     &copy; 2023 Postcard | Kontakt: kontakt@Postcard.com
 </footer>
