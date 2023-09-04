@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="./manifest.json">
     <link rel="stylesheet" href="./src/css/app.css">
-    <script src="./src/js/app.js"></script>
-    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
+    <link rel="stylesheet" href="./src/css/feed.css">
+    <script type="module"  src="./src/js/app.js"></script>
+    <script type="module"  src="./src/js/feed.js"></script>
 
+    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <link rel="apple-touch-startup-image" href="icons/apple-splash-2048-2732.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
@@ -64,7 +66,7 @@
                 fringilla, nisl id mollis consectetur, felis lorem gravida odio,
                 nec sagittis sem tortor quis erat.
             </p>
-            <img class="like-btn" id="likes"src="./src/images/heartbutton_99629.png" alt="Like Button">
+            <img class="like-btn" id="likes" src="./src/images/heartbutton_99629.png" alt="Like Button">
             <span class="likes-count">100 Likes</span>
             <img class="detail-btn" src="./src/images/vergrößern_icon.png" alt="detail Button" onclick="showMyPopup()">
         </div>
@@ -76,9 +78,17 @@
         <h4>{{title}}</h4>
     </span>
 </div>
+<div class="popup" id="popupCamera">
+    <span class="popuptext" id="camera">
+        <img class="exit-button" src="./src/images/exit_icon.png" alt="Exit Button" onclick="showPopupCamera()">
+        <h4>Take a picture</h4>
+        <video id="player" autoplay></video>
+    </span>
+</div>
 <div class="add-button-wrapper">
     <img class="add-button" id="add-button" src="./src/images/32360.png" alt="Add Button" onclick="showPopup()">
 </div>
+
 <div class="popup" id="popupWindow">
     <form>
         <span class="popuptext" id="myPopup">
@@ -93,8 +103,8 @@
          <div class="popup-bottom">
             <input type="file" id="myFile" name="filename">
             <label for="myFile" class="actualBtn"><img class="actualBtn" src="./src/images/image_icon.png" alt="upload File Button"></label>
-             <button class="send" type="submit" onclick="addPost()"> add new post</button>
-        <label class="actualBtnCamera"><img class="actualBtnCamera" src="./src/images/camera_icon.png" alt="Take Picture Button"></label>
+             <button class="send" type="submit" onclick=""> add new post</button>
+            <label class="actualBtnCamera"><img class="actualBtnCamera" src="./src/images/camera_icon.png" alt="Take Picture Button" onclick="showPopupCamera()"></label>
         </div>
         </span>
     </form>

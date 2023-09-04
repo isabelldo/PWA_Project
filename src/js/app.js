@@ -1,4 +1,4 @@
-
+import {initializeMedia} from './feed.js';
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
@@ -30,6 +30,17 @@ function showPopup() {
     }
     else {
         popup.style.display = "flex"
+    }
+}
+
+function showPopupCamera() {
+    var popup = document.getElementById("popupCamera");
+    if(popup.style.display == "flex")
+    {
+        popup.style.display = "none"
+    }
+    else {
+        popup.style.display = "flex";
         initializeMedia();
     }
 }
@@ -45,3 +56,7 @@ function showMyPopup() {
     }
 }
 
+export {showMenu};
+export {showPopup};
+export {showPopupCamera};
+export {showMyPopup};

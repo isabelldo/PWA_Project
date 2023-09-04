@@ -1,18 +1,40 @@
+/*
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const { collection } = require('../db/conn');
 const  ObjectId = require('mongodb').ObjectId;
 
+const baseUrl = 'http://127.0.0.1:3000/posts/';
+
 // GET all posts
-router.get('/', cors(), async(req, res) => {
+/!*router.get('/', cors(), async(req, res) => {
     const allPosts = await collection.find().toArray();
     res.status(200);
     res.send(allPosts);
-});
+});*!/
+
+// GET all posts
+fetch(baseUrl, {
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json'
+        }
+    })
+    .then(
+        response => {
+            return response;
+        }
+    )
+    .catch(
+        err => {
+            console.log(err);
+        }
+    )
+
 
 // GET one post
-router.get('/:id', cors(), async(req, res) => {
+/!*router.get('/:id', cors(), async(req, res) => {
 
     try {
         const id_obj = new ObjectId(req.params.id);
@@ -26,7 +48,26 @@ router.get('/:id', cors(), async(req, res) => {
             error: "Post does not exist!"
         });
     }
-});
+});*!/
+
+// GET one post
+fetch(url+'/:id', {
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json'
+    }
+})
+    .then(
+        response => {
+            return response;
+        }
+    )
+    .catch(
+        err => {
+            console.log(err);
+        }
+    )
+
 
 // POST one new post
 router.post('/', async(req, res) => {
@@ -49,6 +90,32 @@ router.post('/', async(req, res) => {
         });
     }
 });
+
+// GET one post
+fetch(url+'/:id', {
+    method: 'POST',
+    headers: {
+        'Content-Type' : 'application/json',
+        'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+        title: req.body.title,
+        location: req.body.location,
+        image_id: req.body.image_id,
+        description: req.body.description,
+        likes: req.body.likes
+        }
+    )
+})
+    .then( response => {
+        console.log('Data sent to backend ...', response);
+        return response.json();
+    })
+    .then( data => {
+        console.log('data ...', data);
+        updateUI(Object.entries(data));
+    });
+
 
 // PATCH (update) one post
 router.patch('/:id', async(req, res) => {
@@ -107,3 +174,4 @@ router.delete('/:id', async(req, res) => {
 
 module.exports = router;
 
+*/

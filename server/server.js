@@ -1,7 +1,7 @@
 const express = require('express');
 const postRoutes = require('./routes/post.routes');
-const createPost = require('../')
-const cors = require('cors')
+const createPost = require('../');
+const cors = require('cors');
 
 const app = express();
 const PORT = 3000;

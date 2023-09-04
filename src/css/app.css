@@ -19,27 +19,23 @@ header {
     user-select: none;
     width: 100%;
     height: 60%;
-    justify-content: right;
+    justify-content: center;
     margin-left: 0;
     z-index: 3;
 }
 
 /* The actual popup */
 .popup .popuptext {
-    width: 90%;
-    background-color: #f2f2f2;
+    width: 100%;
     color: #000;
     text-align: center;
     border-radius: 6px;
     padding: 8px 0;
     position: relative;
     margin-left: 10%;
-    margin-right: 10%;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 
 .popup-bottom{
-    position: absolute;
     bottom: 0;
     width: 100%;
     padding-bottom: 5px;
@@ -70,7 +66,7 @@ header {
     text-align: left;
     border-radius: 6px;
     marker:none;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
 }
 
 .menu li{
@@ -202,6 +198,45 @@ textarea{
     float: right;
     border-radius: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    height: 100%;
+    background-color: #f2f2f2;
+    width: 90%;
+    color: #000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: relative;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+}
+
+#popupCamera{
+    z-index: 6;
+    background-color: #f2f2f2;
+    width: 80%;
+    color: #000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+}
+
+#myPopupWindow {
+    background-color: #f2f2f2;
+    width: 80%;
+    color: #000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,1 +1,21 @@
+@media (min-width: 600px) {
+    .shared-moment-card.mdl-card {
+        width: 60%;
+    }
+}
 
+@media (min-width: 1200px) {
+    .shared-moment-card.mdl-card {
+        width: 45%;
+    }
+}
+
+.shared-moment-card .mdl-card__title {
+    height: 250px;
+}
+
+@media (min-height: 600px) {
+    .shared-moment-card .mdl-card__title {
+        height: 300px;
+    }
+}
