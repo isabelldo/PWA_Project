@@ -1,5 +1,5 @@
 const express = require('express');
-const postRoutes = require('./routes/post.routes');
+const postRoutes = require('../src/js/feed');
 const createPost = require('../');
 const cors = require('cors');
 

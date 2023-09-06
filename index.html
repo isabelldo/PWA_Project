@@ -7,8 +7,11 @@
     <link rel="manifest" href="./manifest.json">
     <link rel="stylesheet" href="./src/css/app.css">
     <link rel="stylesheet" href="./src/css/feed.css">
-    <script type="module"  src="./src/js/app.js"></script>
-    <script type="module"  src="./src/js/feed.js"></script>
+    <script type="module" src="./src/js/app.js"></script>
+    <script type="module" src="./src/js/feed.js"></script>
+    <script type="module" src="./src/js/idb.js"></script>
+    <script type="module" src="./src/js/db.js"></script>
+
 
     <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,7 +51,7 @@
 </head>
 <body>
 <header>
-        <img class="menu-Button" src="./src/images/Hamburgermenü.png" alt="Menü" onclick="showMenu()">
+        <img class="menu-Button" id="menu-button" src="./src/images/Hamburgermenü.png" alt="Menü">
         <ul class="menu" id="hidden-menu">
             <li><a href="#">Startseite</a></li>
             <li><a href="#">Kontakt</a></li>
@@ -68,43 +71,48 @@
             </p>
             <img class="like-btn" id="likes" src="./src/images/heartbutton_99629.png" alt="Like Button">
             <span class="likes-count">100 Likes</span>
-            <img class="detail-btn" src="./src/images/vergrößern_icon.png" alt="detail Button" onclick="showMyPopup()">
+            <img class="detail-btn" src="./src/images/vergrößern_icon.png" alt="detail Button">
         </div>
     </div>
 </div>
 <div class="popup" id="myPopupWindow">
     <span class="popuptext" id="onePost">
-        <img class="exit-button" src="./src/images/exit_icon.png" alt="Exit Button" onclick="showMyPopup()">
+        <img class="exit-button" id="exit-details" src="./src/images/exit_icon.png" alt="Exit Button">
         <h4>{{title}}</h4>
     </span>
 </div>
 <div class="popup" id="popupCamera">
     <span class="popuptext" id="camera">
-        <img class="exit-button" src="./src/images/exit_icon.png" alt="Exit Button" onclick="showPopupCamera()">
-        <h4>Take a picture</h4>
-        <video id="player" autoplay></video>
+        <img class="exit-button" id="exit-camera" src="./src/images/exit_icon.png" alt="Exit Button">
+        <canvas class="Player" id="canvas"></canvas>
+        <video class="Player" id="player" autoplay></video>
+        <img class="actualBtnCamera" id="take-picture-button" src="./src/images/camera_icon.png" alt="Take Picture Button">
     </span>
 </div>
 <div class="add-button-wrapper">
-    <img class="add-button" id="add-button" src="./src/images/32360.png" alt="Add Button" onclick="showPopup()">
+    <img class="add-button" id="add-button" src="./src/images/32360.png" alt="Add Button">
 </div>
 
 <div class="popup" id="popupWindow">
     <form>
         <span class="popuptext" id="myPopup">
-            <img class="exit-button" src="./src/images/exit_icon.png" alt="Exit Button" onclick="showPopup()">
+            <img class="exit-button" id="exit-add" src="./src/images/exit_icon.png" alt="Exit Button">
             <h4>Create an adventure memory</h4>
         <label>
              <textarea id="title" placeholder="Title"></textarea>
         </label>
+            <label>
+                <text id="add-location-btn"> Add your location </text>
+                <text id="location"></text>
+            </label>
             <label>
                 <textarea id="description" placeholder="Tell your adventure-memory"></textarea>
             </label>
          <div class="popup-bottom">
             <input type="file" id="myFile" name="filename">
             <label for="myFile" class="actualBtn"><img class="actualBtn" src="./src/images/image_icon.png" alt="upload File Button"></label>
-             <button class="send" type="submit" onclick=""> add new post</button>
-            <label class="actualBtnCamera"><img class="actualBtnCamera" src="./src/images/camera_icon.png" alt="Take Picture Button" onclick="showPopupCamera()"></label>
+             <button class="send" type="submit"> add new post</button>
+            <label class="actualBtnCamera"><img class="actualBtnCamera" id="camera-button" src="./src/images/camera_icon.png" alt="Take Picture Button"></label>
         </div>
         </span>
     </form>

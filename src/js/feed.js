@@ -2,13 +2,17 @@ let form = document.querySelector('form');
 let titleInput = document.querySelector('#title');
 let descriptionInput = document.querySelector('#description');
 let fileInput = document.querySelector('#myFile');
+let locationInput = document.querySelector('#location')
 let videoPlayer = document.querySelector('#player');
+let locationButton = document.querySelector('#add-location-btn');
+let fetchedLocation;
 let file = null;
 let titleValue = '';
 let locationValue = '';
 let descriptionValue = '';
 let imageURI = '';
 let url = 'http://localhost:3000/posts';
+let networkDataReceived = false;
 
 
 function initializeMedia(){
@@ -40,6 +44,53 @@ function initializeMedia(){
         });
 }
 
+locationButton.addEventListener('click', event => {
+    if(!('geolocation' in navigator)) {
+        return;
+    }
+
+    locationButton.style.display = 'none';
+    //locationLoader.style.display = 'block';
+
+    navigator.geolocation.getCurrentPosition( position => {
+        locationButton.style.display = 'inline';
+        //locationLoader.style.display = 'none';
+        fetchedLocation = { latitude: position.coords.latitude, longitude: position.coords.longitude };
+        console.log('current position: ', fetchedLocation);
+
+        let nominatimURL = 'https://nominatim.openstreetmap.org/reverse';
+        nominatimURL += '?format=jsonv2';   // format=[xml|json|jsonv2|geojson|geocodejson]
+        nominatimURL += '&lat=' + fetchedLocation.latitude;
+        nominatimURL += '&lon=' + fetchedLocation.longitude;
+
+        fetch(nominatimURL)
+            .then((res) => {
+                //console.log('nominatim res ...', res);
+                return res.json();
+            })
+            .then((data) => {
+                //console.log('nominatim res.json() ...', data);
+                locationInput.value = data.address.city;
+                //console.log(locationInput.value);
+                const location = document.getElementById('location');
+                location.textContent = locationInput.value;
+            })
+            .catch( (err) => {
+                console.error('err', err)
+                locationInput.value = 'In Berlin';
+            });
+
+       // document.querySelector('#manual-location').classList.add('is-focused');
+    }, err => {
+        console.log(err);
+        locationButton.style.display = 'inline';
+        //locationLoader.style.display = 'none';
+        alert('Couldn\'t fetch location, please enter manually!');
+        fetchedLocation = null;
+    }, { timeout: 5000});
+});
+
+
 form.addEventListener('submit', event => {
     event.preventDefault(); // nicht absenden und neu laden
 
@@ -65,21 +116,25 @@ function getAllPosts() {
     const posts = [];
 
     fetch(baseUrl, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-        .then(
-            response => {
-                posts = response;
+        .then((res) => {
+            return res.json();
+        })
+            .then((data) => {
+                networkDataReceived = true;
+                console.log('From backend ...', data);
             }
-        )
-        .catch(
-            err => {
-                console.log(err);
+                updateUI(data);
+            });
+}
+
+if('indexedDB' in window) {
+    readAllData('posts')
+        .then( data => {
+            if(!networkDataReceived) {
+                console.log('From cache ...', data);
+                updateUI(data);
             }
-        )
+        })
 }
 
 function sendDataToBackend() {
@@ -110,6 +165,45 @@ function sendDataToBackend() {
             updateUI([newPost]);
         });
 }
+
+function updateUI(data) {
+
+        for(let card of data)
+        {
+            createCard(card);
+        }
+}
+
+function createCard(card) {
+    let container = document.createElement('div');
+    container.className = 'post';
+    let cardTitle = document.createElement('h2');
+    cardTitle.className = 'content-title';
+    cardTitle.textContent = card.title;
+    container.appendChild(cardTitle);
+
+    let image = new Image();
+    image.src = card.image_id;
+    let cardImage = document.createElement('img');
+    cardImage.src = 'url('+ image.src + ')';
+    cardImage.className = 'content-images';
+    container.appendChild(cardImage);
+
+    let cardContent = document.createElement('div');
+    cardContent.className = 'post-content';
+    container.appendChild(cardContent);
+
+    let content = document.createElement('p');
+    content = card.description;
+    cardContent.appendChild(content);
+
+    let detailButton = document.createElement('img');
+    detailButton.className = 'detail-btn';
+    detailButton.src = './src/images/vergrößern_icon.png'
+    detailButton.alt = 'detail Button';
+    cardContent.appendChild(detailButton);
+}
+
 
 export {initializeMedia};
 

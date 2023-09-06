@@ -32,7 +32,7 @@ header {
     border-radius: 6px;
     padding: 8px 0;
     position: relative;
-    margin-left: 10%;
+    margin:0 auto;
 }
 
 .popup-bottom{
@@ -119,6 +119,12 @@ header {
     padding-right: 10px;
     cursor: pointer;
 }
+
+#take-picture-button {
+    padding-top: 40px;
+    padding-right: 50%;
+}
+
 footer {
     background-color: #333;
     color: #fff;
@@ -224,6 +230,7 @@ form {
     padding: 8px 0;
     margin-left: 10%;
     margin-right: 10%;
+    bottom: 18%;
     box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
 }
 
@@ -237,6 +244,19 @@ form {
     margin-left: 10%;
     margin-right: 10%;
     box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+}
+
+.Player {
+    height: 85%;
+    width: 90%;
+    margin:0 auto;
+}
+
+#add-location-btn {
+    float: left;
+    margin-left: 6px;
+    margin-bottom: 5px;
+    text-decoration-line: underline;
 }
 
 @media only screen and (max-width: 600px) {
