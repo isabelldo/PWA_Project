@@ -11,7 +11,7 @@ let titleValue = '';
 let locationValue = '';
 let descriptionValue = '';
 let imageURI = '';
-let url = 'http://localhost:3000/posts';
+let url = 'http://localhost:3000/';
 let networkDataReceived = false;
 
 
@@ -90,6 +90,48 @@ locationButton.addEventListener('click', event => {
     }, { timeout: 5000});
 });
 
+document.getElementById('take-picture-button').addEventListener('click', event => {
+    event.preventDefault(); //Neuladen der Seite vermeiden
+    canvasElement.style.display = "flex";
+    videoPlayer.style.display = "none";
+    document.getElementById('take-picture-button').style.display = 'none';
+    let context = canvasElement.getContext('2d');
+    context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
+    videoPlayer.srcObject.getVideoTracks().forEach( track => {
+        track.stop();
+    });
+    imageURI = canvas.toDataURL("image/jpeg");
+    fetch(imageURI)
+        .then(res => {
+            return res.blob()
+        })
+        .then(blob => {
+            file = new File([blob], "myFile.jpeg", { type: "image/jpeg" })
+            console.log('file', file)
+        })
+});
+
+document.getElementsByClassName('detail.btn').addEventListener('click', event => {
+        let idContent = event.target.closest('#content-id');
+        let idPost = idContent.textContent;
+
+        let contentTitle = document.getElementsByClassName('content-title');
+        let contentLocation = document.getElementById('content-location');
+        let contentDescription = document.getElementsByClassName('content-description');
+
+        fetch(url + '/posts/' + idPost)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                contentTitle.textContent = data.title;
+                contentLocation.textContent = data.location;
+                contentDescription.textContent = data.description;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+})
 
 form.addEventListener('submit', event => {
     event.preventDefault(); // nicht absenden und neu laden
@@ -98,8 +140,8 @@ form.addEventListener('submit', event => {
         alert('Erst Foto aufnehmen!')
         return;
     }
-    if (titleInput.value.trim() === '' || locationInput.value.trim() === '' || descriptionInput.value.trim() === '' || descriptionInput.value.trim() === '') {
-        alert('Bitte Titel und Location angeben!')
+    if (titleInput.value.trim() === '' || locationInput.value.trim() === '' || descriptionInput.value.trim() === '') {
+        alert('Please enter titel, location, description and a picture!')
         return;
     }
 
@@ -109,23 +151,78 @@ form.addEventListener('submit', event => {
     locationValue = locationInput.value;
     descriptionValue = descriptionInput.value;
 
-    sendDataToBackend();
+    if('serviceWorker' in navigator && 'SyncManager' in window) {
+        navigator.serviceWorker.ready
+            .then( sw => {
+                let post = {
+                    id: new Date().toISOString(),
+                    title: titleValue,
+                    location: locationValue,
+                    description: descriptionValue,
+                    image_id: file      // file durch den Foto-Button belegt
+                };
+                writeData('sync-posts', post)
+                    .then( () => {
+                        sw.sync.register('sync-new-post');
+                    });
+            });
+    }
+    else {
+        sendDataToBackend();
+    }
 });
 
 function getAllPosts() {
     const posts = [];
 
-    fetch(baseUrl, {
+    fetch(url + 'posts/', {
         .then((res) => {
             return res.json();
         })
             .then((data) => {
                 networkDataReceived = true;
                 console.log('From backend ...', data);
-            }
+            })
                 updateUI(data);
-            });
-}
+    });
+};
+
+self.addEventListener('sync', event => {
+    console.log('service worker --> background syncing ...', event);
+    if(event.tag === 'sync-new-post') {
+        console.log('service worker --> syncing new posts ...');
+        event.waitUntil(
+            readAllData('sync-posts')
+                .then( dataArray => {
+                    for(let data of dataArray) {
+                        console.log('data from IndexedDB', data);
+                        const formData = new FormData();
+                        formData.append('title', data.title);
+                        formData.append('location', data.location);
+                        formData.append('description', data.description);
+                        formData.append('file', data.image_id);
+
+                        console.log('formData', formData)
+
+                        fetch('http://localhost:3000/posts', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then( response => {
+                                console.log('Data sent to backend ...', response);
+                                if(response.ok) {
+                                    deleteOneData('sync-posts', data.id)
+                                }
+                            })
+                            .catch( err => {
+                                console.log('Error while sending data to backend ...', err);
+                            })
+                    }
+                })
+        );
+    }
+})
+
 
 if('indexedDB' in window) {
     readAllData('posts')
@@ -146,7 +243,7 @@ function sendDataToBackend() {
 
     console.log('formData', formData)
 
-    fetch(url, {
+    fetch(url + 'posts', {
         method: 'POST',
         body: formData
     })
@@ -182,6 +279,11 @@ function createCard(card) {
     cardTitle.textContent = card.title;
     container.appendChild(cardTitle);
 
+    let contentId = document.createElement('text');
+    contentId.id = 'content-id';
+    contentId.textContent = card.id;
+    contentId.style.display = "none";
+
     let image = new Image();
     image.src = card.image_id;
     let cardImage = document.createElement('img');
@@ -202,6 +304,8 @@ function createCard(card) {
     detailButton.src = './src/images/vergrößern_icon.png'
     detailButton.alt = 'detail Button';
     cardContent.appendChild(detailButton);
+
+
 }
 
 

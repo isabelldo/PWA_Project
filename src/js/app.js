@@ -1,8 +1,6 @@
 import {initializeMedia} from './feed.js';
 let videoPlayer = document.querySelector('#player');
 let canvasElement = document.querySelector('#canvas');
-let imageURI = '';
-let file = null;
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
@@ -58,28 +56,6 @@ function showPopupCamera() {
         initializeMedia();
     }
 }
-
-document.getElementById('take-picture-button').addEventListener('click', event => {
-    event.preventDefault(); //Neuladen der Seite vermeiden
-    canvasElement.style.display = "flex";
-    videoPlayer.style.display = "none";
-    document.getElementById('take-picture-button').style.display = 'none';
-    let context = canvasElement.getContext('2d');
-    context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
-    videoPlayer.srcObject.getVideoTracks().forEach( track => {
-        track.stop();
-    });
-    imageURI = canvas.toDataURL("image/jpeg");
-    fetch(imageURI)
-        .then(res => {
-            return res.blob()
-        })
-        .then(blob => {
-            file = new File([blob], "myFile.jpeg", { type: "image/jpeg" })
-            console.log('file', file)
-        })
-});
-
 
 document.getElementsByClassName('detail-btn').addEventListener("click", showDetails);
 document.getElementById('exit-details').addEventListener("click", showDetails);

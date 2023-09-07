@@ -61,7 +61,7 @@
 <div class="container">
     <div class="post">
         <h2 class="content-title">Vietnam</h2>
-                    <img class="content-images" src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
+        <img class="content-images" src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
         <div class="post-content">
             <p>
                 Hier ist ein spannender Reisebericht über mein erstes Reiseziel.
@@ -78,16 +78,20 @@
 <div class="popup" id="myPopupWindow">
     <span class="popuptext" id="onePost">
         <img class="exit-button" id="exit-details" src="./src/images/exit_icon.png" alt="Exit Button">
-        <h4>{{title}}</h4>
+        <h4 class="content-title"></h4>
+        <text id="content-location"></text>
+        <text class="content-description"></text>
     </span>
 </div>
 <div class="popup" id="popupCamera">
+    <form>
     <span class="popuptext" id="camera">
         <img class="exit-button" id="exit-camera" src="./src/images/exit_icon.png" alt="Exit Button">
         <canvas class="Player" id="canvas"></canvas>
         <video class="Player" id="player" autoplay></video>
         <img class="actualBtnCamera" id="take-picture-button" src="./src/images/camera_icon.png" alt="Take Picture Button">
     </span>
+    </form>
 </div>
 <div class="add-button-wrapper">
     <img class="add-button" id="add-button" src="./src/images/32360.png" alt="Add Button">
