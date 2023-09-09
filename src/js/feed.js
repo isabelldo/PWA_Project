@@ -5,6 +5,8 @@ let fileInput = document.querySelector('#myFile');
 let locationInput = document.querySelector('#location')
 let videoPlayer = document.querySelector('#player');
 let locationButton = document.querySelector('#add-location-btn');
+import {idb} from './idb';
+import {readAllData} from './db';
 let fetchedLocation;
 let file = null;
 let titleValue = '';
@@ -110,6 +112,7 @@ document.getElementById('take-picture-button').addEventListener('click', event =
             console.log('file', file)
         })
 });
+
 form.addEventListener('submit', event => {
     event.preventDefault(); // nicht absenden und neu laden
 

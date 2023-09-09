@@ -14,7 +14,7 @@ const STATIC_FILES = [
     '/src/css/app.css',
     //'/src/css/feed.css',
     '/src/images/Panorama_2.jpg',
-    '/src/images/Icon.jpg',
+    '/src/images/Icon.png',
     '/src/images/Hamburgermenü.png',
     '/src/images/vergrößern_icon.png',
     '/src/images/exit_icon.png',

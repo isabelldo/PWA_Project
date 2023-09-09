@@ -57,3 +57,4 @@ function deleteOneData(st, id) {
         });
 }
 
+export {readAllData};
