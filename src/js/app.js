@@ -57,8 +57,6 @@ function showPopupCamera() {
     }
 }
 
-document.getElementsByClassName('detail-btn').addEventListener("click", showDetails);
-document.getElementById('exit-details').addEventListener("click", showDetails);
 function showDetails() {
     var popup = document.getElementById("myPopupWindow");
     if(popup.style.display == "flex")
@@ -66,7 +64,26 @@ function showDetails() {
         popup.style.display = "none"
     }
     else {
-        popup.style.display = "flex"
+        popup.style.display = "flex";
+        let idContent = event.target.closest('#content-id');
+        let idPost = idContent.textContent;
+
+        let contentTitle = document.getElementsByClassName('content-title');
+        let contentLocation = document.getElementById('content-location');
+        let contentDescription = document.getElementsByClassName('content-description');
+
+        fetch(url + '/posts/' + idPost)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                contentTitle.textContent = data.title;
+                contentLocation.textContent = data.location;
+                contentDescription.textContent = data.description;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
     }
 }
 

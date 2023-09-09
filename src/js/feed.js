@@ -110,29 +110,6 @@ document.getElementById('take-picture-button').addEventListener('click', event =
             console.log('file', file)
         })
 });
-
-document.getElementsByClassName('detail.btn').addEventListener('click', event => {
-        let idContent = event.target.closest('#content-id');
-        let idPost = idContent.textContent;
-
-        let contentTitle = document.getElementsByClassName('content-title');
-        let contentLocation = document.getElementById('content-location');
-        let contentDescription = document.getElementsByClassName('content-description');
-
-        fetch(url + '/posts/' + idPost)
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => {
-                contentTitle.textContent = data.title;
-                contentLocation.textContent = data.location;
-                contentDescription.textContent = data.description;
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            })
-})
-
 form.addEventListener('submit', event => {
     event.preventDefault(); // nicht absenden und neu laden
 
@@ -171,21 +148,6 @@ form.addEventListener('submit', event => {
         sendDataToBackend();
     }
 });
-
-function getAllPosts() {
-    const posts = [];
-
-    fetch(url + 'posts/', {
-        .then((res) => {
-            return res.json();
-        })
-            .then((data) => {
-                networkDataReceived = true;
-                console.log('From backend ...', data);
-            })
-                updateUI(data);
-    });
-};
 
 self.addEventListener('sync', event => {
     console.log('service worker --> background syncing ...', event);
@@ -303,8 +265,8 @@ function createCard(card) {
     detailButton.className = 'detail-btn';
     detailButton.src = './src/images/vergrößern_icon.png'
     detailButton.alt = 'detail Button';
+    detailButton.onclick = 'showDetails()';
     cardContent.appendChild(detailButton);
-
 
 }
 

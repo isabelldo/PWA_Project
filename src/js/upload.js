@@ -1,3 +1,4 @@
+/*
 const multer = require("multer");
 const {GridFsStorage} = require("multer-gridfs-storage");
 require('dotenv').config();
@@ -28,3 +29,4 @@ const storage = new GridFsStorage({
 });
 
 module.exports = multer({ storage });
+*/
