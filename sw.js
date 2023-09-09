@@ -1,7 +1,7 @@
 importScripts('/src/js/idb.js');
 importScripts('/src/js/db.js');
 
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 4;
 const CURRENT_STATIC_CACHE = 'static-v'+CACHE_VERSION;
 const CURRENT_DYNAMIC_CACHE = 'dynamic-v'+CACHE_VERSION;
 const STATIC_FILES = [
@@ -9,8 +9,9 @@ const STATIC_FILES = [
     '/index.html',
     '/src/js/app.js',
     '/src/js/feed.js',
-    '/src/js/material.min.js',
+    //'/src/js/material.min.js',
     '/src/js/idb.js',
+    '/src/js/db.js',
     '/src/css/app.css',
     //'/src/css/feed.css',
     '/src/images/Panorama_2.jpg',

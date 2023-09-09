@@ -56,5 +56,3 @@ function deleteOneData(st, id) {
             console.log('Data deleted ...');
         });
 }
-
-export {readAllData};
