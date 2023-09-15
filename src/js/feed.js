@@ -1,9 +1,10 @@
+import { writeData, readAllData, deleteOneData } from "./db.js";
+
 let form = document.querySelector("form");
 let titleInput = document.querySelector("#title");
 let descriptionInput = document.querySelector("#description");
 let fileInput = document.querySelector("#myFile");
 let locationInput = document.querySelector("#location");
-let videoPlayer = document.querySelector("#player");
 let locationButton = document.querySelector("#add-location-btn");
 let fetchedLocation;
 let file = null;
@@ -11,9 +12,86 @@ let titleValue = "";
 let locationValue = "";
 let descriptionValue = "";
 let imageURI = "";
-let url = "http://localhost:3000/";
+const url = "http://localhost:3000/";
 let networkDataReceived = false;
 const menuButton = document.getElementById("menu-button");
+
+//////////////////////////
+
+const videoPlayer = document.querySelector("#player");
+const canvasElement = document.querySelector("#canvas");
+
+const addButton = document.getElementById("add-button");
+const exitButton = document.getElementById("exit-button");
+
+let isPopupOpen = false; // Initialize a variable to track the popup state
+const popup = document.getElementById("popupWindow");
+const popupCamera = document.getElementById("popupCamera");
+const popupDetail = document.getElementById("myPopupWindow");
+
+const cameraButton = document.getElementById("camera-button");
+const cameraExit = document.getElementById("exit-camera");
+
+const detailButton = document.getElementById("detail-btn");
+
+addButton.addEventListener("click", showPopup(), () =>
+  console.log("addButton.addEventListener called()")
+);
+exitButton.addEventListener("click", showPopup(), () =>
+  console.log("exitButton.addEventListener called()")
+);
+cameraButton.addEventListener("click", showPopupCamera, () =>
+  console.log("cameraButton.addEventListener called()")
+);
+cameraExit.addEventListener("click", showPopupCamera, () =>
+  console.log("cameraExit.addEventListener called()")
+);
+/* detailButton.addEventListener("click", showDetails, () =>
+  console.log("detailButton.addEventListener called()")
+);
+
+ */
+/**
+ * Displays a popup window
+ */
+export function showPopup() {
+  if (isPopupOpen) {
+    popup.style.display = "none"; // Close the popup
+  } else {
+    popup.style.display = "flex"; // Open the popup
+  }
+  isPopupOpen = !isPopupOpen; // Toggle the state
+}
+
+/**
+ * Display a popupCamera can used with camera
+ */
+export function showPopupCamera() {
+  if (popupCamera.style.display == "flex") {
+    popupCamera.style.display = "none";
+    videoPlayer.srcObject.getVideoTracks().forEach((track) => {
+      track.stop();
+    });
+    document.getElementById("take-picture-button").style.display = "flex";
+  } else {
+    popupCamera.style.display = "flex";
+    canvasElement.style.display = "none";
+    initializeMedia();
+  }
+}
+
+/**
+ * Display the details screen
+ */
+export function showDetails() {
+  if (popupDetail.style.display == "flex") {
+    popupDetail.style.display = "none";
+  } else {
+    popupDetail.style.display = "flex";
+  }
+}
+
+//////////////////////////
 
 locationButton.addEventListener("click", () => {
   if (!("geolocation" in navigator)) {
@@ -97,9 +175,7 @@ takePictureButton.addEventListener("click", (event) => {
     });
 });
 
-const detailButton = document.getElementsByClassName("detail.btn");
-
-detailButton.addEventListener("click", (event) => {
+/* detailButton.addEventListener("click", (event) => {
   let idContent = event.target.closest("#content-id");
   let idPost = idContent.textContent;
 
@@ -121,7 +197,7 @@ detailButton.addEventListener("click", (event) => {
     .catch((error) => {
       console.error("Error:", error);
     });
-});
+}); */
 
 form.addEventListener("submit", (event) => {
   event.preventDefault(); // nicht absenden und neu laden
@@ -166,7 +242,7 @@ form.addEventListener("submit", (event) => {
 /**
  * Description
  */
-function initializeMedia() {
+export function initializeMedia() {
   if (!("mediaDevices" in navigator)) {
     navigator.mediaDevices = {};
   }
@@ -277,7 +353,7 @@ if ("indexedDB" in window) {
   });
 }
 
-function sendDataToBackend() {
+export function sendDataToBackend() {
   const formData = new FormData();
   formData.append("title", titleValue);
   formData.append("location", locationValue);
@@ -306,13 +382,13 @@ function sendDataToBackend() {
     });
 }
 
-function updateUI(data) {
+export function updateUI(data) {
   for (let card of data) {
     createCard(card);
   }
 }
 
-function createCard(card) {
+export function createCard(card) {
   let container = document.createElement("div");
   container.className = "post";
   let cardTitle = document.createElement("h2");
@@ -346,5 +422,3 @@ function createCard(card) {
   detailButton.alt = "detail Button";
   cardContent.appendChild(detailButton);
 }
-
-module.exports(initializeMedia);

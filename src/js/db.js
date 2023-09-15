@@ -1,4 +1,4 @@
-const idb = require("./idb.js");
+import idb from "./idb.js";
 
 idb.openDB("posts-store", 1, {
   upgrade(db) {
@@ -17,7 +17,7 @@ idb.openDB("posts-store", 1, {
   },
 });
 
-function writeData(st, data) {
+export function writeData(st, data) {
   idb.then((dbPosts) => {
     let tx = dbPosts.transaction(st, "readwrite");
     let store = tx.objectStore(st);
@@ -26,7 +26,7 @@ function writeData(st, data) {
   });
 }
 
-function readAllData(st) {
+export function readAllData(st) {
   return idb.then((dbPosts) => {
     let tx = dbPosts.transaction(st, "readonly");
     let store = tx.objectStore(st);
@@ -34,7 +34,7 @@ function readAllData(st) {
   });
 }
 
-function clearAllData(st) {
+export function clearAllData(st) {
   return idb.then((dbPosts) => {
     let tx = dbPosts.transaction(st, "readwrite");
     let store = tx.objectStore(st);
@@ -43,7 +43,7 @@ function clearAllData(st) {
   });
 }
 
-function deleteOneData(st, id) {
+export function deleteOneData(st, id) {
   idb
     .then((dbPosts) => {
       let tx = dbPosts.transaction(st, "readwrite");
@@ -55,5 +55,3 @@ function deleteOneData(st, id) {
       console.log("Data deleted ...");
     });
 }
-
-module.exports = { writeData, readAllData, clearAllData, deleteOneData };

@@ -218,3 +218,5 @@ var idb = (function (e) {
     e
   );
 })({});
+
+export default idb;
