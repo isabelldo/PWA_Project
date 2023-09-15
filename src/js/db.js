@@ -1,23 +1,27 @@
-const db = idb.openDB('posts-store', 1, {
+const db = idb.openDB('posts-store', 2, {
     upgrade(db) {
         // Create a store of objects
         const store1 = db.createObjectStore('posts', {
             // The '_id' property of the object will be the key.
             keyPath: '_id',
+            // If it isn't explicitly set, create a value by auto incrementing.
+            autoIncrement: true,
         });
         // Create an index on the '_id' property of the objects.
-        store.createIndex('_id', '_id');
+        store1.createIndex('_id', '_id');
 
+        // Create another store of objects
         const store2 = db.createObjectStore('sync-posts', {
             keyPath: 'id',
+            autoIncrement: true,
         });
         store2.createIndex('id', 'id');
     },
 });
 
 function writeData(st, data) {
-    db
-        .then( dbPosts => {
+    return db
+        .then(dbPosts => {
             let tx = dbPosts.transaction(st, 'readwrite');
             let store = tx.objectStore(st);
             store.put(data);
@@ -27,7 +31,7 @@ function writeData(st, data) {
 
 function readAllData(st) {
     return db
-        .then( dbPosts => {
+        .then(dbPosts => {
             let tx = dbPosts.transaction(st, 'readonly');
             let store = tx.objectStore(st);
             return store.getAll();
@@ -36,7 +40,7 @@ function readAllData(st) {
 
 function clearAllData(st) {
     return db
-        .then( dbPosts => {
+        .then(dbPosts => {
             let tx = dbPosts.transaction(st, 'readwrite');
             let store = tx.objectStore(st);
             store.clear();
@@ -44,15 +48,15 @@ function clearAllData(st) {
         })
 }
 
-function deleteOneData(st, id) {
+function deleteOneData(st, _id) {
     db
-        .then( dbPosts => {
+        .then(dbPosts => {
             let tx = dbPosts.transaction(st, 'readwrite');
             let store = tx.objectStore(st);
-            store.delete(id);
+            store.delete(_id);
             return tx.done;
         })
-        .then( () => {
+        .then(() => {
             console.log('Data deleted ...');
         });
 }
