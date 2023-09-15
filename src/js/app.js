@@ -1,75 +1,78 @@
-import {initializeMedia} from './feed.js';
-let videoPlayer = document.querySelector('#player');
-let canvasElement = document.querySelector('#canvas');
+const initializeMedia = require("./feed");
+let videoPlayer = document.querySelector("#player");
+let canvasElement = document.querySelector("#canvas");
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-        .register('/sw.js')
-        .then(() => {
-            console.log('service worker registriert')
-        })
-        .catch(
-            err => { console.log(err); }
-        );
+const addButton = document.getElementById("add-button");
+const exitButton = document.getElementById("exit-button");
+
+const popup = document.getElementById("popupWindow");
+const popupCamera = document.getElementById("popupCamera");
+const popupDetail = document.getElementById("myPopupWindow");
+
+const cameraButton = document.getElementById("camera-button");
+const cameraExit = document.getElementById("exit-camera");
+
+const detailButton = document.getElementById("detail-btn");
+
+addButton.addEventListener("click", showPopup());
+exitButton.addEventListener("click", showPopup());
+cameraButton.addEventListener("click", showPopupCamera());
+cameraExit.addEventListener("click", showPopupCamera());
+detailButton.addEventListener("click", showDetails);
+
+/**
+ * Registration of the service worker
+ */
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then(() => {
+      console.log("service worker registriert");
+    })
+    .catch((err) => {
+      console.error("Error with installing of service worker", err);
+    });
 }
 
-document.getElementById('menu-button').addEventListener('click', event => {
-    var menu = document.getElementById("hidden-menu");
-    if(menu.style.display == "inline-block")
-    {
-        menu.style.display = "none"
-    }
-    else {
-        menu.style.display = "inline-block"
-    }
-});
-
-document.getElementById('add-button').addEventListener('click', showPopup);
-document.getElementById('exit-add').addEventListener('click', showPopup);
+/**
+ * Displays a popup window
+ */
 function showPopup() {
-    var popup = document.getElementById("popupWindow");
-    if(popup.style.display == "flex")
-    {
-        popup.style.display = "none"
-        document.getElementById('location').textContent = '';
-    }
-    else {
-        popup.style.display = "flex"
-    }
+  if (popup.style.display == "flex") {
+    popup.style.display = "none";
+    document.getElementById("location").textContent = "";
+  } else {
+    popup.style.display = "flex";
+  }
 }
 
-document.getElementById('camera-button').addEventListener('click', showPopupCamera);
-document.getElementById('exit-camera').addEventListener('click', showPopupCamera);
+/**
+ * Display a popupCamera can used with camera
+ */
+
 function showPopupCamera() {
-    var popup = document.getElementById("popupCamera");
-    if(popup.style.display == "flex")
-    {
-        popup.style.display = "none"
-        videoPlayer.srcObject.getVideoTracks().forEach( track => {
-            track.stop();
-        });
-        document.getElementById('take-picture-button').style.display = 'flex';
-    }
-    else {
-        popup.style.display = "flex";
-        canvasElement.style.display = "none";
-        initializeMedia();
-    }
+  if (popupCamera.style.display == "flex") {
+    popupCamera.style.display = "none";
+    videoPlayer.srcObject.getVideoTracks().forEach((track) => {
+      track.stop();
+    });
+    document.getElementById("take-picture-button").style.display = "flex";
+  } else {
+    popupCamera.style.display = "flex";
+    canvasElement.style.display = "none";
+    initializeMedia();
+  }
 }
 
-document.getElementsByClassName('detail-btn').addEventListener("click", showDetails);
-document.getElementById('exit-details').addEventListener("click", showDetails);
+/**
+ * Display the details screen
+ */
 function showDetails() {
-    var popup = document.getElementById("myPopupWindow");
-    if(popup.style.display == "flex")
-    {
-        popup.style.display = "none"
-    }
-    else {
-        popup.style.display = "flex"
-    }
+  if (popupDetail.style.display == "flex") {
+    popupDetail.style.display = "none";
+  } else {
+    popupDetail.style.display = "flex";
+  }
 }
 
-export {showPopup};
-export {showPopupCamera};
-export {showDetails};
+module.exports(showPopup, showPopupCamera, showDetails);
