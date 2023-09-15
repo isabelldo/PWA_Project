@@ -1,4 +1,4 @@
-const { writeData, clearAllData } = require("./src/js/db");
+import { writeData, clearAllData } from "./src/js/db.js";
 
 const CACHE_VERSION = 3;
 const CURRENT_STATIC_CACHE = "static-v" + CACHE_VERSION;

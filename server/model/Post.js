@@ -1,9 +1,11 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const schema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
   title: String,
   location: String,
   image_id: String,
 });
 
-module.exports = mongoose.model("Post", schema);
+const Post = mongoose.model("Post", postSchema);
+
+export default Post;

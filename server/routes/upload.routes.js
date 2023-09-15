@@ -5,10 +5,10 @@
  * @param upload middleware to upload files and binaries
  * @param serverUrl server url string from env
  */
+import express from "express";
+import upload from "../middleware/upload.js";
 
-const express = require("express");
 const router = express.Router();
-const upload = require("../middleware/upload");
 const serverUrl = process.env.SERVER_URL;
 
 router.post("/", upload.single("file"), (req, res) => {
@@ -25,4 +25,4 @@ router.post("/", upload.single("file"), (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

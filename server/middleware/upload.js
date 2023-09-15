@@ -3,9 +3,11 @@
  * Provides storing files larger than 16 MB in MongoDb.
  * This is used for POST-Requests to store pictures -> see upload.routes.js
  */
-const multer = require("multer");
-const { GridFsStorage } = require("multer-gridfs-storage");
-require("dotenv").config();
+import multer from "multer";
+import { GridFsStorage } from "multer-gridfs-storage";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const credentials = process.env.PATH_TO_PEM;
 
@@ -13,8 +15,8 @@ const storage = new GridFsStorage({
   //db: connection,
   url: process.env.DB_CONNECTION,
   options: {
-    sslKey: credentials, // nur falls ein Zertifikat zur Autorisierung
-    sslCert: credentials, // für MongoDB Atlas verwendet wird
+    tlsCertificateKeyFile: credentials, // nur falls ein Zertifikat zur Autorisierung
+    tlsCertificateKeyFilePassword: credentials, // für MongoDB Atlas verwendet wird
     dbName: process.env.DB_NAME,
   },
   file: (req, file) => {
@@ -32,4 +34,4 @@ const storage = new GridFsStorage({
   },
 });
 
-module.exports = multer({ storage });
+export default multer({ storage });

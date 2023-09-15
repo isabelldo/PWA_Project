@@ -1,9 +1,9 @@
-const express = require("express");
-const postsRoutes = require("./routes/post.routes");
-const uploadRoutes = require("./routes/upload.routes");
-const downloadRoutes = require("./routes/download.routes");
-// const deleteRoutes = require("./routes/delete.routes");
-const cors = require("cors");
+import express from "express";
+import postsRoutes from "./routes/post.routes.js";
+import uploadRoutes from "./routes/upload.routes.js";
+import downloadRoutes from "./routes/download.routes.js";
+// import deleteRoutes from "./routes/delete.routes";
+import cors from "cors";
 
 const app = express();
 const PORT = 3000;
@@ -14,7 +14,7 @@ app.use(cors());
 app.use("/posts", postsRoutes);
 app.use("/upload", uploadRoutes);
 app.use("/download", downloadRoutes);
-// sapp.use("/delete", deleteRoutes);
+// app.use("/delete", deleteRoutes);
 
 app.listen(PORT, (error) => {
   if (error) {

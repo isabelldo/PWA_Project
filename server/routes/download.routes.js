@@ -1,11 +1,10 @@
 /**
  * Route to download files to database as stream
  */
-
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const mongodb = require("mongodb");
-const { database } = require("../db/conn");
+import mongodb from "mongodb";
+import database from "../db/conn.js";
 
 const bucket = new mongodb.GridFSBucket(database, {
   bucketName: "posts",
@@ -26,4 +25,4 @@ router.get("/:filename", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

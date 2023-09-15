@@ -8,15 +8,17 @@
  * @param files db connection to collection posts.files
  * @param chunks db connection to collection chunks.files
  */
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const { client } = require("../db/conn");
+import db from "../db/conn.js";
 // const ObjectId = require("mongodb").ObjectId; //Deprecated
-const Post = require("../model/Post");
-const upload = require("../middleware/upload");
-const files = client.db().collection("posts.files");
-const chunks = client.db().collection("posts.chunks");
-require("dotenv").config();
+import Post from "../model/Post.js";
+import upload from "../middleware/upload.js";
+const files = db.collection("posts.files");
+const chunks = db.collection("posts.chunks");
+import dotenv from "dotenv";
+
+dotenv.config();
 
 /**
  * Function to get a complete dataset of all collections (/posts /chunks /files)
@@ -65,22 +67,20 @@ async function getOnePost(id) {
  * Function to get all data with binaries
  * @returns dataset of all data with binaries
  */
-function getAllPosts() {
-  return new Promise(async (resolve, reject) => {
-    const sendAllPosts = [];
-    const allPosts = await Post.find();
-    try {
-      for (const post of allPosts) {
-        console.log("post", post);
-        const onePost = await getOnePost(post._id);
-        sendAllPosts.push(onePost);
-      }
-      console.log("sendAllPosts", sendAllPosts);
-      resolve(sendAllPosts);
-    } catch {
-      reject(new Error("Posts do not exist!"));
+async function getAllPosts() {
+  const sendAllPosts = [];
+  const allPosts = await Post.find();
+  try {
+    for (const post of allPosts) {
+      console.log("post", post);
+      const onePost = await getOnePost(post._id);
+      sendAllPosts.push(onePost);
     }
-  });
+    console.log("sendAllPosts", sendAllPosts);
+    return sendAllPosts;
+  } catch {
+    throw new Error("Posts do not exist!");
+  }
 }
 
 /**
@@ -207,4 +207,4 @@ router.post("/", upload.single("file"), async (req, res) => {
   }
 }); */
 
-module.exports = router;
+export default router;

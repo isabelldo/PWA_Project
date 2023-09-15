@@ -1,19 +1,27 @@
-const { MongoClient } = require("mongodb");
-require("dotenv").config();
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const credentials = process.env.PATH_TO_PEM;
 
-const client = new MongoClient(process.env.DB_CONNECTION, {
-  sslKey: credentials,
-  sslCert: credentials,
+mongoose.connect(process.env.DB_CONNECTION, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  tls: true,
+  tlsCertificateKeyFile: credentials,
+  tlsCertificateKeyFilePassword: credentials,
+  dbName: process.env.DB_NAME,
 });
 
-const dbconnection = client.connect();
-const database = client.db(process.env.DB_NAME);
-const collection = database.collection(process.env.COLLECTION);
-console.log(`Connected to DB ... `);
+const db = mongoose.connection;
 
-module.exports.client = client;
-module.exports.dbconnection = dbconnection;
-module.exports.database = database;
-module.exports.collection = collection;
+db.on("error", (error) => {
+  console.error("MongoDB connection error:", error);
+});
+
+db.once("open", () => {
+  console.log("Connected to MongoDB");
+});
+
+export default db;
