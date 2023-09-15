@@ -1,11 +1,11 @@
-const { MongoClient } = require('mongodb');
-require('dotenv').config();
+const { MongoClient } = require("mongodb");
+require("dotenv").config();
 
-const credentials = process.env.PATH_TO_PEM
+const credentials = process.env.PATH_TO_PEM;
 
 const client = new MongoClient(process.env.DB_CONNECTION, {
-    sslKey: credentials,
-    sslCert: credentials
+  sslKey: credentials,
+  sslCert: credentials,
 });
 
 const dbconnection = client.connect();
