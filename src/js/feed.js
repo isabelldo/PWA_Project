@@ -119,14 +119,22 @@ function initializeMedia(){
         });
 }
 
-fetch(url + 'posts')
+fetch('http://localhost:3000/posts')
     .then((res) => {
         return res.json();
     })
     .then((data) => {
-        networkDataReceived = true;
         console.log('From backend ...', data);
         updateUI(data);
+    })
+    .catch( (err) => {
+        if('indexedDB' in window) {
+            readAllData('posts')
+                .then( data => {
+                    console.log('From cache ...', data);
+                    updateUI(data);
+                })
+        }
     });
 
 locationButton.addEventListener('click', event => {
@@ -270,17 +278,6 @@ self.addEventListener('sync', event => {
         );
     }
 })
-
-
-if('indexedDB' in window) {
-    readAllData('posts')
-        .then( data => {
-            if(!networkDataReceived) {
-                console.log('From cache ...', data);
-                updateUI(data);
-            }
-        })
-}
 
 function sendDataToBackend() {
     const formData = new FormData();

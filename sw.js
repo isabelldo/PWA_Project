@@ -1,7 +1,7 @@
 importScripts('./src/js/db.js');
-importScripts('/src/js/idb.js');
+importScripts('./src/js/idb.js');
 
-const CACHE_VERSION = 1;
+const CACHE_VERSION = 3;
 const CURRENT_STATIC_CACHE = 'static-v'+CACHE_VERSION;
 const CURRENT_DYNAMIC_CACHE = 'dynamic-v'+CACHE_VERSION;
 const STATIC_FILES = [
@@ -21,6 +21,7 @@ const STATIC_FILES = [
     "/src/images/32360.png",
     "/src/images/image_icon.png",
 ];
+
 self.addEventListener('activate', event => {
     console.log('service worker --> activating ...', event);
     event.waitUntil(
@@ -98,6 +99,7 @@ self.addEventListener('sync', event => {
                         console.log('data from IndexedDB', data);
                         const formData = new FormData();
                         formData.append('title', data.title);
+                        formData.append('description', data.description);
                         formData.append('location', data.location);
                         formData.append('file', data.image_id);
 
