@@ -18,11 +18,11 @@ router.get("/:filename", async (req, res) => {
         let downloadStream = bucket.openDownloadStreamByName(filename);
         downloadStream.on("data", (data) => res.status(200).write(data));
         downloadStream.on("error", (err) =>
-            res.status(404).send({ message: filename + " does not exist", err })
+            res.status(404).send({message: filename + " does not exist", err})
         );
         downloadStream.on("end", () => res.end());
     } catch (error) {
-        console.log("error", error);
+        //console.log("error", error);
         res.send("not found");
     }
 });

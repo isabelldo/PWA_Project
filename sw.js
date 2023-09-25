@@ -1,7 +1,7 @@
 importScripts('./src/js/db.js');
-importScripts('./src/js/idb.js');
+//importScripts('./src/js/idb.js');
 
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 1;
 const CURRENT_STATIC_CACHE = 'static-v'+CACHE_VERSION;
 const CURRENT_DYNAMIC_CACHE = 'dynamic-v'+CACHE_VERSION;
 const STATIC_FILES = [
@@ -21,6 +21,17 @@ const STATIC_FILES = [
     "/src/images/32360.png",
     "/src/images/image_icon.png",
 ];
+
+self.addEventListener('install', event => {
+    console.log('service worker --> installing ...', event);
+    event.waitUntil(
+        caches.open(CURRENT_STATIC_CACHE)
+            .then(cache => {
+                console.log('Service-Worker-Cache erzeugt und offen');
+                cache.addAll(STATIC_FILES);
+            })
+    );
+})
 
 self.addEventListener('activate', event => {
     console.log('service worker --> activating ...', event);
@@ -99,8 +110,8 @@ self.addEventListener('sync', event => {
                         console.log('data from IndexedDB', data);
                         const formData = new FormData();
                         formData.append('title', data.title);
-                        formData.append('description', data.description);
                         formData.append('location', data.location);
+                        formData.append('description', data.description);
                         formData.append('file', data.image_id);
 
                         console.log('formData', formData)
@@ -123,3 +134,58 @@ self.addEventListener('sync', event => {
         );
     }
 })
+
+/*
+self.addEventListener('notificationclick', event => {
+    let notification = event.notification;
+    let action = event.action;
+
+    console.log(notification);
+
+    if(action === 'confirm') {
+        console.log('confirm was chosen');
+        notification.close();
+    } else {
+        console.log(action);
+        event.waitUntil(
+            clients.matchAll()      // clients sind alle Windows (Browser), fuer die der Service Worker verantwortlich ist
+                .then( clientsArray => {
+                    let client = clientsArray.find( c => {
+                        return c.visibilityState === 'visible';
+                    });
+
+                    if(client !== undefined) {
+                        client.navigate(notification.data.url);
+                        client.focus();
+                    } else {
+                        clients.openWindow(notification.data.url);
+                    }
+                    notification.close();
+                })
+        );
+    }
+});
+
+self.addEventListener('notificationclose', event => {
+    console.log('notification was closed', event);
+});
+
+self.addEventListener('push', event => {
+    console.log('push notification received', event);
+    let data = { title: 'Test', content: 'Fallback message', openUrl: '/'};
+    if(event.data) {
+        data = JSON.parse(event.data.text());
+    }
+
+    let options = {
+        body: data.content,
+        icon: '/src/images/icons/android-icon96x96.png',
+        data: {
+            url: data.openUrl
+        }
+    };
+
+    event.waitUntil(
+        self.registration.showNotification(data.title, options)
+    );
+});*/

@@ -12,6 +12,44 @@ header {
     padding-bottom: 20px;
     box-shadow: 0 0 10px;
 }
+
+label{
+    float: left;
+    padding-left: 2%;
+}
+
+.popup-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 100%;
+}
+
+span {
+    height: 100%;
+}
+.send {
+    background-color: #0f9d90;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.file-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+input{
+    border-style: none;
+    border-radius: 4px;
+    width: 98%;
+}
 .popup {
     display: none;
     bottom: 20%;
@@ -112,16 +150,20 @@ header {
     color: #333;
 }
 
+#Ok{
+    display: inline;
+    margin-top: 2%;
+}
+
 .exit-button{
     float: right;
     width: 30px;
     height: auto;
-    padding-right: 10px;
     cursor: pointer;
 }
 
 #take-picture-button {
-    padding-top: 40px;
+    padding-top: 2%;
     padding-right: 50%;
 }
 
@@ -142,11 +184,28 @@ footer {
     margin: 0 0 10px 10px;
 }
 
+#title{
+    width: 95%;
+    height: 5%;
+}
 .logo {
     margin-top: 20px;
     max-width: 200px;
     border-radius: 100%;
     box-shadow: 0 10px 20px;
+}
+
+#location{
+    border: none;
+    background-color: transparent;
+}
+
+input#location{
+    display: none;
+    text-align: center;
+    width: 20%;
+    padding: 0.7%;
+    text-decoration-line: underline;
 }
 
 .add-button-wrapper{
@@ -170,7 +229,8 @@ footer {
 textarea{
     border-style: none;
     border-radius: 4px;
-    width: 98%;
+    width: 95%;
+    height: 60px;
 }
 
 #description{

@@ -1,78 +1,33 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="./manifest.json">
-    <link rel="stylesheet" href="./src/css/app.css">
-    <link rel="stylesheet" href="./src/css/feed.css">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="./src/css/app.css"/>
+    <link rel="stylesheet" href="./src/css/feed.css"/>
+    <meta name="theme-color" content="#0f9d90"/>
+    <link rel="manifest" href="./manifest.json"/>
     <script defer src="./src/js/idb.js"></script>
     <script defer src="./src/js/db.js"></script>
     <script type="module" src="./src/js/app.js"></script>
     <script type="module" src="./src/js/feed.js"></script>
 
-
-    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2048-2732.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2732-2048.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1668-2388.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2388-1668.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1536-2048.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2048-1536.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1668-2224.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2224-1668.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1620-2160.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2160-1620.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1290-2796.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2796-1290.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1179-2556.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2556-1179.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1284-2778.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2778-1284.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1170-2532.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2532-1170.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1125-2436.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2436-1125.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1242-2688.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2688-1242.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-828-1792.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1792-828.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1242-2208.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-2208-1242.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-750-1334.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1334-750.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="icons/apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-
     <title>Postcard</title>
 </head>
 <body>
 <header>
-        <img class="menu-Button" id="menu-button" src="./src/images/Hamburgermenü.png" alt="Menü">
-        <ul class="menu" id="hidden-menu">
-            <li><a href="#">Startseite</a></li>
-            <li><a href="#">Kontakt</a></li>
-        </ul>
+    <!--<img class="menu-Button" id="menu-button" src="./src/images/Hamburgermenü.png" alt="Menü">
+    <ul class="menu" id="hidden-menu">
+        <li><a href="#">Startseite</a></li>
+        <li><a href="#">Kontakt</a></li>
+    </ul>-->
     <img class="logo" src="./src/images/Icon.png" alt="Logo">
 </header>
+<!-- In this container, the cards are mapped dynamically. -->
 <div class="container">
-    <div class="post">
-        <h2 class="content-title">Vietnam</h2>
-        <img class="content-images" src="./src/images/IMG_0484.JPG" alt="Reiseziel 1 - Bild 1">
-        <div class="post-content">
-            <p>
-                Hier ist ein spannender Reisebericht über mein erstes Reiseziel.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                fringilla, nisl id mollis consectetur, felis lorem gravida odio,
-                nec sagittis sem tortor quis erat.
-            </p>
-            <img class="detail-btn" src="./src/images/vergrößern_icon.png" alt="detail Button" onclick="showDetails()">
-        </div>
-    </div>
 </div>
+<!--
 <div class="popup" id="myPopupWindow">
     <span class="popuptext" id="onePost">
         <img class="exit-button" id="exit-details" src="./src/images/exit_icon.png" alt="Exit Button">
@@ -80,16 +35,16 @@
         <text id="content-location"></text>
         <text class="content-description"></text>
     </span>
-</div>
+</div>-->
 <div class="popup" id="popupCamera">
-    <form>
     <span class="popuptext" id="camera">
         <img class="exit-button" id="exit-camera" src="./src/images/exit_icon.png" alt="Exit Button">
         <canvas class="Player" id="canvas"></canvas>
         <video class="Player" id="player" autoplay></video>
-        <img class="actualBtnCamera" id="take-picture-button" src="./src/images/camera_icon.png" alt="Take Picture Button">
+        <img class="actualBtnCamera" id="take-picture-button" src="./src/images/camera_icon.png"
+             alt="Take Picture Button">
+        <button class="send" id="Ok" style="display: none">Ok</button>
     </span>
-    </form>
 </div>
 <div class="add-button-wrapper">
     <img class="add-button" id="add-button" src="./src/images/32360.png" alt="Add Button">
@@ -97,25 +52,32 @@
 
 <div class="popup" id="popupWindow">
     <form>
+        <div class="popup-container">
         <span class="popuptext" id="myPopup">
             <img class="exit-button" id="exit-add" src="./src/images/exit_icon.png" alt="Exit Button">
             <h4>Create an adventure memory</h4>
 
-            <textarea id="title" placeholder="Title"></textarea>
+                <label for="title"></label>
+                <input type="text" id="title" placeholder="Title">
 
+                <label for="location">Click: to use your current location</label>
+                <input type="text" id="location">
 
-                <text id="add-location-btn"> Add your location </text>
-                <text id="location"></text>
+                <label for="description"></label>
+                <textarea name="description" id="description" placeholder="Write your adventure memory"></textarea>
 
+                <label for="myFile" class="file-label">
+                <img class="actualBtn" src="./src/images/image_icon.png" alt="Upload File Button">
+                </label>
+                <input type="file" id="myFile" name="filename">
 
-                <textarea id="description" placeholder="Tell your adventure-memory"></textarea>
-         <div class="popup-bottom">
-            <input type="file" id="myFile" name="filename">
-            <label for="myFile" class="actualBtn"><img class="actualBtn" src="./src/images/image_icon.png" alt="upload File Button"></label>
-             <button class="send" type="submit"> add new post</button>
-            <label class="actualBtnCamera"><img class="actualBtnCamera" id="camera-button" src="./src/images/camera_icon.png" alt="Take Picture Button"></label>
-        </div>
+                <button class="send" type="submit">Add New Post</button>
+
+                <label for="camera-button" class="file-label"></label>
+                    <img class="actualBtnCamera" id="camera-button" src="./src/images/camera_icon.png" alt="Take Picture Button">
+
         </span>
+        </div>
     </form>
 </div>
 <footer>

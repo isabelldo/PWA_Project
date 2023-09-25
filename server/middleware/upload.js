@@ -9,7 +9,8 @@ const storage = new GridFsStorage({
     options: {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        dbName: "Postcard" },
+        dbName: "Postcard"
+    },
     file: (req, file) => {
         const match = ["image/png", "image/jpeg", "image/jpg"];
 
@@ -25,5 +26,5 @@ const storage = new GridFsStorage({
     },
 });
 
-module.exports = multer({ storage });
+module.exports = multer({storage});
 

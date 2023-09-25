@@ -8,17 +8,16 @@
  * @param files db connection to collection posts.files
  * @param chunks db connection to collection chunks.files
  */
-const express = require ("express");
+const express = require("express");
 const router = express.Router();
-const Post = require("../model/Post.js") ;
+const Post = require("../model/Post.js");
 const upload = require("../middleware/upload.js");
 const mongoose = require('mongoose');
 require("dotenv").config();
 const db = require('../db/conn');
 
-const files = db.collection("posts.files");
-const chunks = db.collection("posts.chunks");
-
+const files = db.collection('posts.files');
+const chunks = db.collection('posts.chunks');
 
 /**
  * Function to get a complete dataset of all collections (/posts /chunks /files)
@@ -32,77 +31,77 @@ const chunks = db.collection("posts.chunks");
  * @param sortedChunks chunks in sorted order
  * @param fileData create a base64 string from all these chunks
  */
-function getOnePost(id) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const post = await Post.findOne({ _id: id });
-            let fileName = post.image_id;
+async function getOnePost(id) {
+    const post = await Post.findOne({_id: id});
+    //console.log('post', post);
+    let fileName = post.image_id;
 
-            const cursorFiles = files.find({filename: fileName});
-            const allFiles = await cursorFiles.toArray();
-            const cursorChunks = chunks.find({files_id : allFiles[0]._id});
-            const sortedChunks = cursorChunks.sort({n: 1});
-            const fileData = [];
+    const docs = await files.find({filename: fileName}).toArray();
 
-            for await (const chunk of sortedChunks) {
-                    fileData.push(chunk.data.toString('base64'));
-                }
+    //console.log('docs:', docs);
 
-            let base64file = 'data:' + allFiles[0].contentType + ';base64,' + fileData.join('');
-            let getPost = new Post({
-                    "_id": post._id,
-                    "title": post.title,
-                    "location": post.location,
-                    "description": post.description,
-                    "image_id": base64file,
-                });
+    if (docs.length === 0) {
+        console.error('File not found');
+        return null;
+    }
 
-            resolve(getPost);
-    } catch {
-        reject(new Error("getOnePost() says: Post doesn't exist"));
-        }
-    })
+    const chunksArray = await chunks.find({files_id: docs[0]._id}).sort({n: 1}).toArray();
+
+    const fileData = [];
+    for (const chunk of chunksArray) {
+        //console.log('chunk._id', chunk._id);
+        fileData.push(chunk.data.toString('base64'));
+    }
+
+    const base64file = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
+    const getPost = new Post({
+        "title": post.title,
+        "location": post.location,
+        "description": post.description,
+        "image_id": base64file
+    });
+
+    //console.log('getPost', getPost);
+    return getPost;
 }
+
 
 /**
  * Function to get all data with binaries
  * @returns dataset of all data with binaries
  */
-function getAllPosts() {
-    return new Promise( async(resolve, reject) => {
-        const sendAllPosts = [];
-        const allPosts = await Post.find();
-        try {
-            for (const post of allPosts) {
-                console.log('post', post);
-                const onePost = await getOnePost(post._id);
-                sendAllPosts.push(onePost);
-            }
-            console.log('sendAllPosts', sendAllPosts);
-            resolve(sendAllPosts);
-        } catch {
-            reject(new Error("getAllPosts() says: Posts do not exist!"));
+async function getAllPosts() {
+    const sendAllPosts = [];
+    const allPosts = await Post.find();
+    try {
+        for (const post of allPosts) {
+            console.log('post', post);
+            const onePost = await getOnePost(post._id);
+            //console.log("onePost ist:", onePost);
+            sendAllPosts.push(onePost);
         }
-    });
+        //console.log('sendAllPosts', sendAllPosts)
+        return sendAllPosts
+    } catch {
+        console.log("GETALLPOSTS ELSE");
+    }
 }
+
 
 /**
  * GET-All-Function to fetch all data from from database in collections: /posts /chunks /files
  * Call getAllPosts to fetch all posts with data from all collections
  */
 router.get("/", async (req, res) => {
-
-        getAllPosts().then( (posts) => {
-                console.log('post', posts);
-                res.status(200);
-                res.send(posts);
-        })
-            .catch ( () => {
-                res.status(404);
-                res.send({
-                error: "Router / says: Post does not exist!",
-            });
-    });
+    try {
+        getAllPosts().then((posts) => {
+            res.status(200).send(posts);
+        });
+    } catch {
+        res.status(404).send({
+            error: "Post does not exist!",
+        });
+    }
 });
 
 /**
@@ -111,15 +110,23 @@ router.get("/", async (req, res) => {
  *
  */
 router.get("/:id", async (req, res) => {
-    getOnePost(req.params.id).then( (post) => {
-            console.log('post', post);
-            res.status(200).send(post)
-        })
-        .catch ( () => {
+    try {
+        const postId = req.params.id;
+        const post = await getOnePost(postId);
+
+        if (post) {
+            res.status(200).send(post);
+        } else {
             res.status(404).send({
-            error: "Router /:id says: Post does not exist!",
+                error: "Post does not exist!",
+            });
+        }
+    } catch (error) {
+        console.error("Error in getById:", error);
+        res.status(500).send({
+            error: "Internal server error",
         });
-    })
+    }
 });
 
 /**
@@ -127,7 +134,6 @@ router.get("/:id", async (req, res) => {
  * Call upload() to post your binaries to /files collection
  */
 router.post("/", upload.single("file"), async (req, res) => {
-    console.log("router.post() says: Req:", req);
 
     if (req.file === undefined) {
         console.error("router.post() says: No file selected");
@@ -136,12 +142,14 @@ router.post("/", upload.single("file"), async (req, res) => {
         });
     } else {
         try {
+            console.log(req.body);
             const newPost = new Post({
                 title: req.body.title,
                 location: req.body.location,
-                image_id: req.body.image_id,
+                description: req.body.description,
+                image_id: req.file.filename,
             });
-            console.log("router.post() says: newPost:", newPost);
+            console.log("router post:", newPost)
             await newPost.save();
 
             res.status(201).send(newPost);
@@ -191,19 +199,19 @@ router.post("/", upload.single("file"), async (req, res) => {
  * DELETE-Function to delete data by id from database in collections: /posts /chunks /files
  * @todo maybe adjust function
  */
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
-        const post = await Post.findOne({ _id: req.params.id })
+        const post = await Post.findOne({_id: req.params.id})
         let fileName = post.image_id;
-        await Post.deleteOne({ _id: req.params.id });
-        await files.find({filename: fileName}).toArray( async(err, docs) => {
-            await chunks.deleteMany({files_id : docs[0]._id});
+        await Post.deleteOne({_id: req.params.id});
+        await files.find({filename: fileName}).toArray(async (err, docs) => {
+            await chunks.deleteMany({files_id: docs[0]._id});
         })
         await files.deleteOne({filename: fileName});
         res.status(204).send()
     } catch {
         res.status(404)
-        res.send({ error: "Post does not exist!" })
+        res.send({error: "Post does not exist!"})
     }
 });
 

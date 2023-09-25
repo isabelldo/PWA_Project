@@ -10,13 +10,13 @@ const router = express.Router();
 const upload = require('../middleware/upload');
 const serverUrl = process.env.SERVER_URL;
 
-router.post("/", upload.single("file"), (req, res) => {
+router.post("/", upload.single("file"), async (req, res) => {
     if (req.file === undefined) {
         return res.send({
             message: "no file selected",
         });
     } else {
-        console.log("req.file", req.file);
+        //console.log("req.file", req.file);
         const imgUrl = `${serverUrl}/download/${req.file.filename}`;
         return res.status(201).send({
             url: imgUrl,
