@@ -1,19 +1,31 @@
-const { MongoClient } = require('mongodb');
+const mongoose = require("mongoose");
 require('dotenv').config();
 
-const credentials = process.env.PATH_TO_PEM
+const credentials = process.env.PATH_TO_PEM;
 
-const client = new MongoClient(process.env.DB_CONNECTION, {
-    sslKey: credentials,
-    sslCert: credentials
+mongoose.connect(process.env.DB_CONNECTION, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: process.env.DB_NAME,
 });
 
-const dbconnection = client.connect();
-const database = client.db(process.env.DB_NAME);
-const collection = database.collection(process.env.COLLECTION);
-console.log(`Connected to DB ... `);
+const db = mongoose.connection;
 
-module.exports.client = client;
-module.exports.dbconnection = dbconnection;
-module.exports.database = database;
-module.exports.collection = collection;
+let gfs;
+
+db.on('disconnected', () => {
+    console.log('Mongoose default connection disconnected');
+});
+
+db.on("error", (error) => {
+    console.error("MongoDB connection error:", error);
+});
+
+db.once("open", () => {
+    gfs = new mongoose.mongo.GridFSBucket(db.db, {
+        bucketName: 'posts'
+    })
+    console.log("Connected to MongoDB");
+});
+
+module.exports = db;
